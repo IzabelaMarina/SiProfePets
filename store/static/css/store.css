@@ -1,0 +1,12 @@
+.list-group {
+    width: 300px;
+}
+
+#produtos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-fluid {
+    display: flex;
+}

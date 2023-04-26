@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+{% load cart %}
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="box-element">
+
+				<a  class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Continue comprando</a>
+
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items: <strong>{{size}}</strong></h5></th>
+						<th><h5>Total:<strong> R$ {{products|total_cart_price:request.session.cart|floatformat:2}}</strong></h5></th>
+						<th>
+							<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Finalizar</a>
+						</th>
+					</tr>
+				</table>
+
+			</div>
+
+			<br>
+			<div class="box-element">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Preço</strong></div>
+					<div style="flex:1"><strong>Quantidade</strong></div>
+					<div style="flex:1"><strong>Total</strong></div>
+				</div>
+				{% for product in products %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{product.image.url}}"></div>
+					<div style="flex:2"><p>{{product.name}}</p></div>
+					<div style="flex:1"><p>R$ {{product.price|floatformat:2}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{product|cart_quantity:request.session.cart}}</p>
+						<div class="quantity">
+							<form action="/#{{product.id}}" method="post" class="chg-quantity">
+								{% csrf_token %}
+								<input hidden type="text" name='product' value='{{product.id}}'>
+								<input type="image" class="chg-quantity" src="{% static  'images/arrow-up.png' %}">
+							</form>
+					
+							<form action="/#{{product.id}}" method="post" class="chg-quantity">
+								{% csrf_token %}
+								<input hidden type="text" name='product' value='{{product.id}}'>
+								<input hidden type="text" name='remove' value='True'>
+								<input type="image" class="chg-quantity" src="{% static  'images/arrow-down.png' %}">
+							</form>
+						</div>
+					</div>
+					<div style="flex:1"><p>R$ {{product|price_total:request.session.cart|floatformat:2}}</p></div>
+				</div>
+				{% endfor %}
+
+			</div>
+		</div>
+	</div>
+{% endblock content %}
