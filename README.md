@@ -8,6 +8,8 @@ Pôr em prática conhecimentos de gerenciamento de bancos de dados, utilizando u
 
 ## Modelagem do banco de dados
 
+<img src="Documentação/modelagem.png" width=500>
+
 ## Funções do banco de dados disponíveis no site
 
 * Busca produtos por categoria
